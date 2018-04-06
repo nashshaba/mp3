@@ -24,7 +24,7 @@ library(lwgeom)
 
 ```{r, message=FALSE, warning=FALSE}
 landmarks<-macleish_layers[["landmarks"]]
-
+trail<-macleish_layers[["trails"]]
 macleish_layers[["challenge_courses"]]
 
 macleish_layers[["forests"]] 
@@ -57,9 +57,9 @@ CAMP_A <- data.frame(lon = -72.68389 , lat = 42.44893) %>%
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
 CAMP_B <- data.frame(lon = -72.68389 , lat = 42.44893) %>% 
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
- chestnut<-data.frame(lon = -72.6781834971304,lat = 42.4493416520406) %>%
+ low_point<-data.frame(lon= -72.6749333567048, lat= 42.4463482225726) %>%
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
-st_distance(PARKING, chestnut)
+st_distance(PARKING, low_point)
 
 ```
 
@@ -83,7 +83,7 @@ map<-leaflet() %>%
       style = list(
         "color" = "red"))) %>%
   addPolygons(data = macleish_layers[["boundary"]], 
-              weight = 0.5, color = "white") %>%
+              weight = 0.5, color = "lightyellow") %>%
   addCircles(data = macleish_layers[["challenge_courses"]], 
               weight = 1,popup = "Challenge Course", color = "green" ) %>%
   addPolylines(data = streams, weight= 3.5, popup =  ~Id, color = ~color2(Length_Of_Streams)) %>%
@@ -98,7 +98,7 @@ map<-leaflet() %>%
   addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
 addLayersControl(baseGroups = "boundary",
-overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = TRUE))  
+overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
 
   
 map
