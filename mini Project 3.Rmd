@@ -25,17 +25,18 @@ library(lwgeom)
 ```{r, message=FALSE, warning=FALSE}
 landmarks<-macleish_layers[["landmarks"]]
 trail<-macleish_layers[["trails"]]
-macleish_layers[["challenge_courses"]]
 
-macleish_layers[["forests"]] 
+streams<-macleish_layers[["streams"]]%>%
+  mutate(Length_Of_Streams = st_length(geometry))
+
 
 trails<-macleish_layers[["trails"]]%>%
   mutate(Length_Of_Trails = st_length(geometry))
 names(trails)
 inside_trails<-st_intersection(macleish_layers[["boundary"]],
-              macleish_layers[["trails"]])
+            trails)
 inside_streams <-st_intersection(macleish_layers[["boundary"]],
-              macleish_layers[["streams"]])
+              streams)
 streams_trails<-st_intersection(inside_trails,inside_streams)
 trail_stream_crossing <- st_cast(streams_trails, "POINT")
 sites <- tribble(
@@ -46,8 +47,7 @@ sites <- tribble(
 places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 #names(streams_trails)
 
-streams<-macleish_layers[["streams"]]%>%
-  mutate(Length_Of_Streams = st_length(geometry))
+
 ```
 
 ```{r, message=FALSE, warning=FALSE}
