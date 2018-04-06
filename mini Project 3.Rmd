@@ -104,7 +104,7 @@ map<-leaflet() %>%
               weight = 0.5, color = "white") %>%
   addCircles(data = macleish_layers[["challenge_courses"]], 
               weight = 1,popup = "Challenge Course", color = "green" ) %>%
-  addPolylines(data = streams, weight= 2.5, popup =  ~Id, color = ~color2(Length_Of_Streams)) %>%
+  addPolylines(data = streams, weight= 3.5, popup =  ~Id, color = ~color2(Length_Of_Streams)) %>%
   addPolylines(data = trails, weight = 3, popup =  ~name, color = ~color1(Length_Of_Trails)) %>%
   addPolygons(data = macleish_layers[["wetlands"]], 
               weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue") %>%
