@@ -99,7 +99,9 @@ color3<-colorFactor("Dark2", forests$name_of_forests)
 map<-leaflet() %>%
   addTiles() %>%
     #addMarkers(data = points, popup = ~point) %>%
-  addMarkers(data = places, popup = ~point) %>%
+  addMarkers(data = places, popup = ~point, labelOptions = labelOptions(noHide = T, direction = "bottom",
+      style = list(
+        "color" = "red"))) %>%
   addPolygons(data = macleish_layers[["boundary"]], 
               weight = 0.5, color = "white") %>%
   addCircles(data = macleish_layers[["challenge_courses"]], 
