@@ -1,0 +1,128 @@
+---
+title: "Mini Project 3"
+author: "Julia Lee"
+date: "3/31/2018"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+#install.packages("sf")
+library(sf)
+# will install version 0.3.2
+# install.packages("macleish")
+#devtools::install_github("beanumber/macleish")
+library(macleish)
+library(leaflet)
+library(RSQLite)
+#install.packages("lwgeom")
+library(lwgeom)
+```
+
+```{r}
+weather<- etl("macleish") %>%
+  etl_update() 
+```
+
+```{r}
+names(weather)
+orchard <- weather %>%
+  tbl("orchard") %>%
+  collect(n = Inf)
+```
+
+```{r, message=FALSE, warning=FALSE}
+names(macleish_layers)
+landmarks<-macleish_layers[["landmarks"]]
+
+macleish_layers[["challenge_courses"]]
+
+macleish_layers[["forests"]] 
+
+trails<-macleish_layers[["trails"]]%>%
+  mutate(Length_Of_Trails = st_length(geometry))
+names(trails)
+inside_trails<-st_intersection(macleish_layers[["boundary"]],
+              macleish_layers[["trails"]])
+inside_streams <-st_intersection(macleish_layers[["boundary"]],
+              macleish_layers[["streams"]])
+streams_trails<-st_intersection(inside_trails,inside_streams)
+my_points <- tribble(
+~point, ~lon, ~lat,
+  "A",-72.68015, 42.44796,"B",-72.67989,42.45126, "C",-72.67989,42.45126,
+"D",-72.67968,42.4495, "E", -72.68267,42.44952,"F", -72.68293, 42.45028,
+                                               "G",-72.68299,42.45024, "H",-72.68389, 42.44893,)
+sites <- tribble(
+~point, ~lat, ~lon,
+"Group Campsite", 42.450976, -72.678154,
+"Remote Campite", 42.458570, -72.674732,
+"Parking", 42.448013, -72.680663,)
+places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
+names(streams_trails)
+points<-st_as_sf(my_points,coords = c("lon", "lat"), crs = 4326)
+
+streams<-macleish_layers[["streams"]]%>%
+  mutate(Length_Of_Streams = st_length(geometry))
+```
+```{r, message=FALSE, warning=FALSE}
+PARKING <- data.frame(lon = -72.680663 , lat = 42.448013) %>% 
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+CAMP_A <- data.frame(lon = -72.68389 , lat = 42.44893) %>% 
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+CAMP_B <- data.frame(lon = -72.68389 , lat = 42.44893) %>% 
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+ chestnut<-data.frame(lon = -72.6781834971304,lat = 42.4493416520406) %>%
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+st_distance(PARKING, chestnut)
+
+```
+
+```{r,message=FALSE, warning=FALSE}
+forests<-macleish_layers[["forests"]] %>%
+  rename(name_of_forests = Sheet1__Na) %>%
+   mutate(Area = st_area(geometry))
+research<-macleish_layers[["research"]]
+ names(research)
+color1<-colorBin("GnBu", trails$Length_Of_Trails,5, pretty = FALSE)
+
+color2 <-colorBin("Reds", streams$Length_Of_Streams,5, pretty = FALSE)
+
+color3<-colorFactor("Dark2", forests$name_of_forests)
+
+```
+
+```{r, message=FALSE, warning=FALSE }
+map<-leaflet() %>%
+  addTiles() %>%
+    #addMarkers(data = points, popup = ~point) %>%
+  addMarkers(data = places, popup = ~point) %>%
+  addPolygons(data = macleish_layers[["boundary"]], 
+              weight = 0.5, color = "white") %>%
+  addCircles(data = macleish_layers[["challenge_courses"]], 
+              weight = 1,popup = "Challenge Course", color = "green" ) %>%
+  addPolylines(data = streams, weight= 2.5, popup =  ~Id, color = ~color2(Length_Of_Streams)) %>%
+  addPolylines(data = trails, weight = 3, popup =  ~name, color = ~color1(Length_Of_Trails)) %>%
+  addPolygons(data = macleish_layers[["wetlands"]], 
+              weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue") %>%
+  addCircles(data = macleish_layers[["landmarks"]], 
+              weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange") %>%
+   addPolygons(data = forests, 
+              weight = 1, fillOpacity = 0.1, color =~color3(name_of_forests))%>%
+  addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>%
+  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
+  addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
+addLayersControl(baseGroups = "boundary",
+overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = TRUE))  
+
+  
+map
+```
+
+
+
+
+
+
+
+
