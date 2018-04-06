@@ -37,7 +37,7 @@ inside_trails<-st_intersection(macleish_layers[["boundary"]],
 inside_streams <-st_intersection(macleish_layers[["boundary"]],
               macleish_layers[["streams"]])
 streams_trails<-st_intersection(inside_trails,inside_streams)
-
+trail_stream_crossing <- st_cast(streams_trails, "POINT")
 sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
@@ -82,6 +82,7 @@ map<-leaflet() %>%
   addMarkers(data = places, popup = ~point, labelOptions = labelOptions(noHide = T, direction = "bottom",
       style = list(
         "color" = "red"))) %>%
+  #addMarkers(data = st_cast(streams_trails, "POINT"), popup = ~name) %>%
   addPolygons(data = macleish_layers[["boundary"]], 
               weight = 0.5, color = "lightyellow") %>%
   addCircles(data = macleish_layers[["challenge_courses"]], 
