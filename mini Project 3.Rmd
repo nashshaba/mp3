@@ -68,9 +68,9 @@ forests<-macleish_layers[["forests"]] %>%
   rename(type_of_forest = Sheet1__Na) %>%
    mutate(Area = st_area(geometry))
 research<-macleish_layers[["research"]]
-color1<-colorBin("GnBu", trails$Length_Of_Trails,5, pretty = FALSE)
+color1<-colorFactor("Paired", inside_trails$name)
 
-color2 <-colorBin("Reds", streams$Length_Of_Streams,5, pretty = FALSE)
+color2 <-colorBin("Reds", inside_streams$Length_Of_Streams,5, pretty = FALSE)
 
 color3<-colorFactor("Dark2", forests$type_of_forest)
 
@@ -87,8 +87,8 @@ map<-leaflet() %>%
               weight = 0.5, color = "lightyellow") %>%
   addCircles(data = macleish_layers[["challenge_courses"]], 
               weight = 1,popup = "Challenge Course", color = "green" ) %>%
-  addPolylines(data = streams, weight= 3.5, popup =  ~Id, color = ~color2(Length_Of_Streams)) %>%
-  addPolylines(data = trails, weight = 3, popup =  ~name, color = ~color1(Length_Of_Trails)) %>%
+  addPolylines(data = inside_streams, weight= 5, popup =  ~Id, color = "Gray") %>%
+  addPolylines(data = inside_trails, weight = 5, popup =  ~name, color = ~color1(name)) %>%
   addPolygons(data = macleish_layers[["wetlands"]], 
               weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue") %>%
   addCircles(data = macleish_layers[["landmarks"]], 
