@@ -45,7 +45,7 @@ sites <- tribble(
 "Parking", 42.448013, -72.680663,)
 places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 names(streams_trails)
-points<-st_as_sf(my_points,coords = c("lon", "lat"), crs = 4326)
+#points<-st_as_sf(my_points,coords = c("lon", "lat"), crs = 4326)
 
 streams<-macleish_layers[["streams"]]%>%
   mutate(Length_Of_Streams = st_length(geometry))
