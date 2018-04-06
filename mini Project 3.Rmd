@@ -45,7 +45,6 @@ sites <- tribble(
 "Parking", 42.448013, -72.680663,)
 places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 names(streams_trails)
-#points<-st_as_sf(my_points,coords = c("lon", "lat"), crs = 4326)
 
 streams<-macleish_layers[["streams"]]%>%
   mutate(Length_Of_Streams = st_length(geometry))
@@ -69,7 +68,6 @@ forests<-macleish_layers[["forests"]] %>%
   rename(type_of_forest = Sheet1__Na) %>%
    mutate(Area = st_area(geometry))
 research<-macleish_layers[["research"]]
- names(research)
 color1<-colorBin("GnBu", trails$Length_Of_Trails,5, pretty = FALSE)
 
 color2 <-colorBin("Reds", streams$Length_Of_Streams,5, pretty = FALSE)
@@ -81,7 +79,6 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 ```{r, message=FALSE, warning=FALSE }
 map<-leaflet() %>%
   addTiles() %>%
-    #addMarkers(data = points, popup = ~point) %>%
   addMarkers(data = places, popup = ~point, labelOptions = labelOptions(noHide = T, direction = "bottom",
       style = list(
         "color" = "red"))) %>%
