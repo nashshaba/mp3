@@ -22,20 +22,7 @@ library(RSQLite)
 library(lwgeom)
 ```
 
-```{r}
-weather<- etl("macleish") %>%
-  etl_update() 
-```
-
-```{r}
-names(weather)
-orchard <- weather %>%
-  tbl("orchard") %>%
-  collect(n = Inf)
-```
-
 ```{r, message=FALSE, warning=FALSE}
-names(macleish_layers)
 landmarks<-macleish_layers[["landmarks"]]
 
 macleish_layers[["challenge_courses"]]
