@@ -83,7 +83,7 @@ st_distance(PARKING, chestnut)
 
 ```{r,message=FALSE, warning=FALSE}
 forests<-macleish_layers[["forests"]] %>%
-  rename(name_of_forests = Sheet1__Na) %>%
+  rename(type_of_forest = Sheet1__Na) %>%
    mutate(Area = st_area(geometry))
 research<-macleish_layers[["research"]]
  names(research)
@@ -91,7 +91,7 @@ color1<-colorBin("GnBu", trails$Length_Of_Trails,5, pretty = FALSE)
 
 color2 <-colorBin("Reds", streams$Length_Of_Streams,5, pretty = FALSE)
 
-color3<-colorFactor("Dark2", forests$name_of_forests)
+color3<-colorFactor("Dark2", forests$type_of_forest)
 
 ```
 
@@ -113,7 +113,7 @@ map<-leaflet() %>%
   addCircles(data = macleish_layers[["landmarks"]], 
               weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange") %>%
    addPolygons(data = forests, 
-              weight = 1, fillOpacity = 0.1, color =~color3(name_of_forests))%>%
+              weight = 1, fillOpacity = 0.1, color =~color3(type_of_forest), popup = ~type_of_forest)%>%
   addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>%
   addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
