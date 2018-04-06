@@ -37,11 +37,7 @@ inside_trails<-st_intersection(macleish_layers[["boundary"]],
 inside_streams <-st_intersection(macleish_layers[["boundary"]],
               macleish_layers[["streams"]])
 streams_trails<-st_intersection(inside_trails,inside_streams)
-my_points <- tribble(
-~point, ~lon, ~lat,
-  "A",-72.68015, 42.44796,"B",-72.67989,42.45126, "C",-72.67989,42.45126,
-"D",-72.67968,42.4495, "E", -72.68267,42.44952,"F", -72.68293, 42.45028,
-                                               "G",-72.68299,42.45024, "H",-72.68389, 42.44893,)
+
 sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
