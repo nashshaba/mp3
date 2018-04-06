@@ -2,7 +2,9 @@
 title: "Mini Project 3"
 author: "Julia Lee"
 date: "3/31/2018"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
