@@ -42,7 +42,7 @@ trail_stream_crossing <- st_cast(streams_trails, "POINT")
 sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
-"Remote Campite", 42.458570, -72.674732,
+"Remote Campite", 42.460674, -72.679167,
 "Parking", 42.448013, -72.680663,)
 places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 #names(streams_trails)
