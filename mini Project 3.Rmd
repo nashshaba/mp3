@@ -32,7 +32,7 @@ streams<-macleish_layers[["streams"]]%>% #adding stream length
 
 trails<-macleish_layers[["trails"]]%>%
   mutate(Length_Of_Trails = st_length(geometry))
-names(trails)
+
 inside_trails<-st_intersection(macleish_layers[["boundary"]],
             trails)
 inside_streams <-st_intersection(macleish_layers[["boundary"]],
@@ -45,7 +45,7 @@ sites <- tribble(
 "Remote Campite", 42.458549, -72.679581,
 "Parking", 42.448013, -72.680663,)
 places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
-#names(streams_trails)
+
 
 
 ```
@@ -88,31 +88,51 @@ map%>%
               weight = 0.5, color = "lightyellow") #adding the boundary layer 
 ```
 
-```{r, message=FALSE}
-map<-map%>% addCircles(data = macleish_layers[["challenge_courses"]], 
-              weight = 1,popup = "Challenge Course", color = "green" ) #adding the challenge courses to map  
-%>%
-  addPolylines(data = inside_streams, weight= 5, popup =  ~Id, color = "Gray") #only mapping the streams that are inside the boundary of MacLeish
+```{r, message=FALSE, warning=FALSE }
+map<-map %>% 
+  #adding the challenge courses to map  
+  addCircles(data = macleish_layers[["challenge_courses"]], 
+              weight = 1,popup = "Challenge Course", color = "green" ) %>%
+  #only mapping the streams that are inside the boundary of MacLeish
+  addPolylines(data = inside_streams, weight= 5, popup =  ~Id, color = "Gray") 
 ```
 
-```{r}
+```{r, message=FALSE, warning=FALSE }
 map<-map %>%
-  addPolylines(data = inside_trails, weight = 5, popup =  ~name, color = ~color1(name)) #mapping the trails and coloring them based on name and adding a popup to show the name of each trail by clicking on it
+  #mapping the trails and coloring them based on name and adding a popup to show the name of each trail by clicking on it
+  addPolylines(data = inside_trails, weight = 5, popup =  ~name, color = ~color1(name)) 
 ```
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE }
 map<-map%>%
+  #adding wetlands layer
   addPolygons(data = macleish_layers[["wetlands"]], 
               weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue") %>%
+  #adding landmarks
   addCircles(data = macleish_layers[["landmarks"]], 
-              weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange") %>%
+              weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange") 
+  
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+map <- map %>%
+  #adding forest layer and coloring by type of forest and adding popups that tell the map user what kind of forest
    addPolygons(data = forests, 
               weight = 1, fillOpacity = 0.1, color =~color3(type_of_forest), popup = ~type_of_forest)%>%
+  #adding building layer
   addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>%
-  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
+  #adding research locations, popups are by name of research project
+  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") 
+```
+
+```{r, message=FALSE, warning=FALSE}
+map<-map%>%
+  #adding contour lines
   addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
   addProviderTiles("CONTOURS250K_ARC.shp") %>%
+  # Layers control
 addLayersControl(baseGroups = "boundary",
 overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
 
