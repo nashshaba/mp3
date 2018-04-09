@@ -98,6 +98,7 @@ map<-leaflet() %>%
   addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>%
   addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
   addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
+  addProviderTiles("contours30ft.lyr", group = "Topography") %>%
 addLayersControl(baseGroups = "boundary",
 overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
 
