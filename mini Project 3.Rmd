@@ -133,6 +133,7 @@ map <- map %>%
 
 ```{r, message=FALSE, warning=FALSE}
 map<-map%>%
+  #Add contour line
   addProviderTiles("contour_file") %>%
   # Layers control
 addLayersControl(baseGroups = "boundary",
