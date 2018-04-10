@@ -56,12 +56,18 @@ places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 
 
 ```
+
+
 ```{r, message=}
 #contour_file 
 contour <-"http://download.massgis.digital.mass.gov/shapefiles/state/contours250k.zip"
 contour_file <- basename(contour)
 download.file(contour, destfile = contour_file)
-unzip(contour_file)
+unzip(contour_file, exdir ="contours250k")
+contour <- path.expand("contours250k")
+contour_lines <- read_sf(contour)
+contour_lines %>%
+  plot()
 ```
 
 
@@ -89,22 +95,23 @@ map<-leaflet() %>%
 map<-map%>%
   #adding the boundary layer 
   addPolygons(data = macleish_layers[["boundary"]], 
-              weight = 0.5, color = "lightyellow") 
+              weight = 0.5, color = "lightyellow", group = "boundary") 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
 map<-map %>% 
-  #adding the challenge courses to map  
-  addCircles(data = macleish_layers[["challenge_courses"]], 
-              weight = 1,popup = "Challenge Course", color = "green" ) %>%
+  #adding the challenge courses to map      
+  addCircles(data =
+      macleish_layers[["challenge_courses"]], 
+              weight = 1,popup = "Challenge Course", color = "green", group = "challenge_course") %>%
   #only mapping the streams that are inside the boundary of MacLeish
-  addPolylines(data = inside_streams, weight= 5, popup =  ~Id, color = "Gray") 
+  addPolylines(data = inside_streams, weight= 5, popup =  ~Id, color = "Gray", group = "water_source") 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
 map<-map %>%
   #mapping the trails and coloring them based on name and adding a popup to show the name of each trail by clicking on it
-  addPolylines(data = inside_trails, weight = 5, popup =  ~name, color = ~color1(name)) 
+  addPolylines(data = inside_trails, weight = 5, popup =  ~name, color = ~color1(name), group = "trail") 
 ```
 
 
@@ -112,10 +119,10 @@ map<-map %>%
 map<-map%>%
   #adding wetlands layer
   addPolygons(data = macleish_layers[["wetlands"]], 
-              weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue") %>%
+              weight = 1, fillOpacity = 0.2, popup = ~SOURCE, color = "dodgerblue", group = "water_source") %>%
   #adding landmarks
   addCircles(data = macleish_layers[["landmarks"]], 
-              weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange") 
+              weight = 2, fillOpacity = 0.2, popup = ~Label, color = "orange", group = "landmark") 
   
 ```
 
@@ -124,20 +131,18 @@ map<-map%>%
 map <- map %>%
   #adding forest layer and coloring by type of forest and adding popups that tell the map user what kind of forest
    addPolygons(data = forests, 
-              weight = 1, fillOpacity = 0.1, color =~color3(type_of_forest), popup = ~type_of_forest)%>%
+              weight = 1, fillOpacity = 0.1, color =~color3(type_of_forest), popup = ~type_of_forest, group = "forests")%>%
   #adding building layer
-  addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>%
+  addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name, group = "buildings") %>%
   #adding research locations, popups are by name of research project
-  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") 
-```
+  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") %>%
 
-```{r, message=FALSE, warning=FALSE}
-map<-map%>%
-  #Add contour line
-  addProviderTiles("contour_file") %>%
-  # Layers control
+#Add contour line
+  addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
+  addProviderTiles("CONTOUR_FT", group ="lines" ) %>%
+  #Layers control
 addLayersControl(baseGroups = "boundary",
-overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  %>%
+overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
 
 
   
