@@ -56,7 +56,13 @@ places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 
 
 ```
-
+```{r, message=}
+#contour_file 
+contour <-"http://download.massgis.digital.mass.gov/shapefiles/state/contours250k.zip"
+contour_file <- basename(contour)
+download.file(contour, destfile = contour_file)
+unzip(contour_file)
+```
 
 
 ```{r,message=FALSE, warning=FALSE}
