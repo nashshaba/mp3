@@ -26,19 +26,26 @@ library(lwgeom)
 landmarks<-macleish_layers[["landmarks"]]
 trail<-macleish_layers[["trails"]]
 
-streams<-macleish_layers[["streams"]]%>% #adding stream length
+#adding stream length
+streams<-macleish_layers[["streams"]]%>% 
   mutate(Length_Of_Streams = st_length(geometry))
 
-
+#adding trail length
 trails<-macleish_layers[["trails"]]%>%
   mutate(Length_Of_Trails = st_length(geometry))
 
-inside_trails<-st_intersection(macleish_layers[["boundary"]],
-            trails)
-inside_streams <-st_intersection(macleish_layers[["boundary"]],
+#intersection of boundary and trails
+inside_trails<-st_intersection(macleish_layers[["boundary"]],trails)
+
+#intersection of boundary and streams
+inside_streams<-st_intersection(macleish_layers[["boundary"]],
               streams)
+#intersection of trails and streams and boundary 
 streams_trails<-st_intersection(inside_trails,inside_streams)
+
 trail_stream_crossing <- st_cast(streams_trails, "POINT")
+
+# making a table of important places
 sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
@@ -50,18 +57,7 @@ places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 
 ```
 
-```{r, message=FALSE, warning=FALSE}
-#PARKING <- data.frame(lon = -72.680663 , lat = 42.448013) %>% 
-  #st_as_sf(coords = c("lon", "lat"), crs = 4326)
-#CAMP_A <- data.frame(lon = -72.68389 , lat = 42.44893) %>% 
-  #st_as_sf(coords = c("lon", "lat"), crs = 4326)
-#CAMP_B <- data.frame(lon = -72.68389 , lat = 42.44893) %>% 
-  #st_as_sf(coords = c("lon", "lat"), crs = 4326)
- #low_point<-data.frame(lon= -72.6749333567048, lat= 42.4463482225726) %>%
-  #st_as_sf(coords = c("lon", "lat"), crs = 4326)
-#st_distance(PARKING, low_point)
 
-```
 
 ```{r,message=FALSE, warning=FALSE}
 forests<-macleish_layers[["forests"]] %>%
@@ -83,7 +79,7 @@ map<-leaflet() %>%
 ```
 
 ```{r, message=FALSE, warning=FALSE }
-map%>%
+map<-map%>%
   addPolygons(data = macleish_layers[["boundary"]], 
               weight = 0.5, color = "lightyellow") #adding the boundary layer 
 ```
