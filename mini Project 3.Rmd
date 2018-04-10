@@ -75,13 +75,15 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 ```{r, message=FALSE, warning=FALSE }
 map<-leaflet() %>%
   addTiles() %>%
-  addMarkers(data = places, popup = ~point) #plotting important locations (parking lot, ground campsite, remote campsite)
+  #plotting important locations (parking lot, ground campsite, remote campsite)
+  addMarkers(data = places, popup = ~point) 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
 map<-map%>%
+  #adding the boundary layer 
   addPolygons(data = macleish_layers[["boundary"]], 
-              weight = 0.5, color = "lightyellow") #adding the boundary layer 
+              weight = 0.5, color = "lightyellow") 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
