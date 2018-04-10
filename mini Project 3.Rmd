@@ -176,9 +176,9 @@ map
 possible_camps <- tribble(
 ~point, ~lat, ~lon,
 "camp_A",42.4465135346023, -72.6803904343483,
- "camp_B",42.4458189520893, -72.6787624426988,
+ "camp_B",42.44503189520893, -72.6787624426988,
 "camp_C",42.45024,-72.68299,)
-campsites<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
+campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
 ```
 
 ```{r, message=FALSE,warning=FALSE}
@@ -197,6 +197,7 @@ st_distance(CAMP_B, PARKING, crs = 4326)
 ```{r, message=FALSE,warning=FALSE}
 #putting the new campsites on the map 
 new_campsites <- map %>%
+  addTiles() %>%
 addMarkers(data = campsites, popup = ~point) 
 new_campsites
 ```
