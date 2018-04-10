@@ -1,5 +1,5 @@
 ---
-title: "Mini Project 3"
+title: "Better Campsites"
 author: "Julia Lee"
 date: "3/31/2018"
 output: 
@@ -136,7 +136,8 @@ map<-map%>%
   addProviderTiles("contour_file") %>%
   # Layers control
 addLayersControl(baseGroups = "boundary",
-overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
+overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  %>%
+
 
   
 map
