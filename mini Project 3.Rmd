@@ -133,9 +133,7 @@ map <- map %>%
 
 ```{r, message=FALSE, warning=FALSE}
 map<-map%>%
-  #adding contour lines
-  addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
-  addProviderTiles("CONTOURS250K_ARC.shp") %>%
+  addProviderTiles("contour_file") %>%
   # Layers control
 addLayersControl(baseGroups = "boundary",
 overlayGroups = c("trails", "forests","buildings","streams","wetlands","challenge_courses" ), options = layersControlOptions(collapsed = FALSE))  
