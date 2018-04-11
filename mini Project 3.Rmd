@@ -164,8 +164,7 @@ map <- map %>%
 ```{r, message=FALSE, warning=FALSE}
 map <- map %>%
 #Add contour line
-  #addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
-  addProviderTiles(macleish_layers[["contours_3m"]], group ="lines" ) %>%
+  addPolylines(data = contour_lines, group ="lines" ) %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
