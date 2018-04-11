@@ -8,8 +8,8 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 library(tidyverse)
+
 #install.packages("sf")
 library(sf)
 #install.packages("macleish")
@@ -26,8 +26,8 @@ landmarks<-macleish_layers[["landmarks"]]
 trail<-macleish_layers[["trails"]]
 
 #adding stream length
-streams<-macleish_layers[["streams"]]%>% 
-  mutate(Length_Of_Streams = st_length(geometry))
+streams <- macleish_layers[["streams"]]%>%
+mutate(Length_Of_Streams =  st_length(geometry))
 ```
 
 ```{r,message=FALSE,warning=FALSE}
