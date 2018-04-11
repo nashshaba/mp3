@@ -74,6 +74,7 @@ unzip(contour_file, exdir ="contours250k")
 contour <- path.expand("contours250k")
 contour_lines <-st_read("CONTOURS250K_ARC.shp")
 
+
 ```
 
 ```{r, message=FALSE,warning=FALSE}
@@ -164,7 +165,8 @@ map <- map %>%
 ```{r, message=FALSE, warning=FALSE}
 map <- map %>%
 #Add contour line
-  addPolylines(data = contour_lines, group ="lines" ) %>%
+  addPolylines(data = macleish_layers[["contours_30ft"]], group ="lines" ) %>%
+  addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
@@ -173,7 +175,6 @@ addLayersControl(
   ) 
 map 
 ```
-
 
 ```{r, message=FALSE,warning=FALSE}
 #finding the distance between campsites and parking
@@ -190,7 +191,7 @@ camp_C<-data.frame(lat =42.45024, lon = -72.68299)%>%
 camp_B <- data.frame(lon = -72.6787624426988 , lat = 42.44503189520893) %>% 
  st_as_sf(coords = c("lon", "lat"), crs = 4326)
 
-st_distance(CAMP_B, PARKING, crs = 4326)
+st_distance(camp_B, PARKING, crs = 4326)
 st_distance(camp_A, PARKING, crs = 4326)
 st_distance(camp_C, PARKING, crs = 4326)
 
