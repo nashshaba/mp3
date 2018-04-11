@@ -27,12 +27,12 @@ trail<-macleish_layers[["trails"]]
 
 #adding stream length
 streams <- macleish_layers[["streams"]]%>%
-mutate(Length_Of_Streams =  st_length(geometry))
+mutate(Length_Of_Streams = st_length(geometry))
 ```
 
 ```{r,message=FALSE,warning=FALSE}
 #adding trail length
-trails<-macleish_layers[["trails"]]%>%
+trails<-macleish_layers[["trails"]] %>%
   mutate(Length_Of_Trails = st_length(geometry))
 
 #intersection of boundary and trails
