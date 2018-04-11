@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 #install.packages("sf")
 library(sf)
-# install.packages("macleish")
+#install.packages("macleish")
 #devtools::install_github("beanumber/macleish")
 library(macleish)
 library(leaflet)
@@ -72,10 +72,10 @@ contour_file <- basename(contour)
 download.file(contour, destfile = contour_file)
 unzip(contour_file, exdir ="contours250k")
 contour <- path.expand("contours250k")
-contour_lines <- read_sf(contour)
-contour_lines %>%
-  plot()
+contour_lines <-st_read("CONTOURS250K_ARC.shp")
+
 ```
+
 ```{r, message=FALSE,warning=FALSE}
 #Possible campsites
 possible_camps <- tribble(
@@ -164,8 +164,8 @@ map <- map %>%
 ```{r, message=FALSE, warning=FALSE}
 map <- map %>%
 #Add contour line
-  addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
-  addProviderTiles("CONTOUR_FT", group ="lines" ) %>%
+  #addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
+  addProviderTiles(macleish_layers[["contours_3m"]], group ="lines" ) %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
