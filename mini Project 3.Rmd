@@ -80,7 +80,7 @@ contour_lines %>%
 #Possible campsites
 possible_camps <- tribble(
 ~point, ~lat, ~lon,
-"camp_A",42.4473582225726, -72.6743904343483,
+"camp_A",42.4478582225726, -72.6741503904343483,
  "camp_B",42.44503189520893, -72.6787624426988,
 "camp_C",42.45024,-72.68299)
 campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
@@ -180,12 +180,20 @@ map
 #finding the distance between campsites and parking
 PARKING <- data.frame(lon = -72.680663 , lat = 42.448013) %>% 
  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+camp_A<- data.frame(lat = 42.4478582225726, lon =
+-72.674103904343483)%>% 
+ st_as_sf(coords = c("lon", "lat"), crs = 4326)
 
-CAMP_B <- data.frame(lon = -72.6749333567048 , lat = 42.4458089520893) %>% 
+
+camp_C<-data.frame(lat =42.45024, lon = -72.68299)%>% 
+ st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+camp_B <- data.frame(lon = -72.6787624426988 , lat = 42.44503189520893) %>% 
  st_as_sf(coords = c("lon", "lat"), crs = 4326)
 
 st_distance(CAMP_B, PARKING, crs = 4326)
-
+st_distance(camp_A, PARKING, crs = 4326)
+st_distance(camp_C, PARKING, crs = 4326)
 
 ```
 
