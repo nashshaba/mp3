@@ -19,6 +19,11 @@ library(leaflet)
 library(RSQLite)
 #install.packages("lwgeom")
 library(lwgeom)
+
+devtools::install_github("beanumber/macleish")
+library(macleish)
+packageVersion("macleish")
+
 ```
 
 ```{r, message=FALSE, warning=FALSE}
