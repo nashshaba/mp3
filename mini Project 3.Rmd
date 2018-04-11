@@ -58,8 +58,8 @@ sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
 "Remote Campite", 42.458549, -72.679581,
-"Parking", 42.448013, -72.680663,)
-places<-st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
+"Parking", 42.448013, -72.680663)
+places <- st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 ```
 
 
@@ -76,7 +76,15 @@ contour_lines <- read_sf(contour)
 contour_lines %>%
   plot()
 ```
-
+```{r, message=FALSE,warning=FALSE}
+#Possible campsites
+possible_camps <- tribble(
+~point, ~lat, ~lon,
+"camp_A",42.4453582225726, -72.6743904343483,
+ "camp_B",42.44503189520893, -72.6787624426988,
+"camp_C",42.45024,-72.68299)
+campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
+```
 
 ```{r,message=FALSE, warning=FALSE}
 forests<-macleish_layers[["forests"]] %>%
@@ -95,7 +103,9 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 map<-leaflet() %>%
   addTiles() %>%
   #plotting important locations (parking lot, ground campsite, remote campsite)
-  addMarkers(data = places, popup = ~point) 
+  addMarkers(data = places, popup = ~point) %>%
+  #putting the new campsites on the map 
+  addMarkers(data = campsites, popup = ~point) 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
@@ -162,24 +172,9 @@ addLayersControl(
     overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
-
+map 
 ```
 
-
-```{r, message=FALSE, warning=FALSE}
-#showing the map   
-map
-```
-
-```{r, message=FALSE,warning=FALSE}
-#Possible campsites
-possible_camps <- tribble(
-~point, ~lat, ~lon,
-"camp_A",42.4465135346023, -72.6803904343483,
- "camp_B",42.44503189520893, -72.6787624426988,
-"camp_C",42.45024,-72.68299,)
-campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
-```
 
 ```{r, message=FALSE,warning=FALSE}
 #finding the distance between campsites and parking
@@ -194,13 +189,9 @@ st_distance(CAMP_B, PARKING, crs = 4326)
 
 ```
 
-```{r, message=FALSE,warning=FALSE}
-#putting the new campsites on the map 
-new_campsites <- map %>%
-  addTiles() %>%
-addMarkers(data = campsites, popup = ~point) 
-new_campsites
-```
+
+
+
 
 
 
