@@ -80,7 +80,7 @@ contour_lines %>%
 #Possible campsites
 possible_camps <- tribble(
 ~point, ~lat, ~lon,
-"camp_A",42.4453582225726, -72.6743904343483,
+"camp_A",42.4473582225726, -72.6743904343483,
  "camp_B",42.44503189520893, -72.6787624426988,
 "camp_C",42.45024,-72.68299)
 campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
