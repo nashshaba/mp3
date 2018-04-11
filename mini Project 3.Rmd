@@ -73,8 +73,8 @@ download.file(contour, destfile = contour_file)
 unzip(contour_file, exdir ="contours250k")
 contour <- path.expand("contours250k")
 contour_lines <-st_read("CONTOURS250K_ARC.shp")
-
-
+contour_lines%>%
+plot()
 ```
 
 ```{r, message=FALSE,warning=FALSE}
@@ -166,7 +166,7 @@ map <- map %>%
 map <- map %>%
 #Add contour line
   addPolylines(data = macleish_layers[["contours_30ft"]], group ="lines" ) %>%
-  addProviderTiles("Esri.WorldTopoMap", group = "Topography") %>%
+  addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
