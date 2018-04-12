@@ -29,7 +29,7 @@ packageVersion("macleish")
 ```{r, message=FALSE, warning=FALSE}
 landmarks<-macleish_layers[["landmarks"]]
 trail<-macleish_layers[["trails"]]
-
+ 
 #adding stream length
 streams <- macleish_layers[["streams"]]%>%
 mutate(Length_Of_Streams = st_length(geometry))
@@ -78,8 +78,7 @@ download.file(contour, destfile = contour_file)
 unzip(contour_file, exdir ="contours250k")
 contour <- path.expand("contours250k")
 contour_lines <-st_read("CONTOURS250K_ARC.shp")
-contour_lines%>%
-plot()
+
 ```
 
 ```{r, message=FALSE,warning=FALSE}
@@ -97,9 +96,10 @@ forests<-macleish_layers[["forests"]] %>%
   rename(type_of_forest = Sheet1__Na) %>%
    mutate(Area = st_area(geometry))
 research<-macleish_layers[["research"]]
-color1<-colorFactor("Paired", inside_trails$name)
 
+color1<-colorFactor("Paired", inside_trails$name)
 color2 <-colorBin("Reds", inside_streams$Length_Of_Streams,5, pretty = FALSE)
+color4<-colorBin("GnBu",macleish_layers [["contours_30ft"]]$CONTOUR_FT)
 
 color3<-colorFactor("Dark2", forests$type_of_forest)
 
@@ -170,12 +170,12 @@ map <- map %>%
 ```{r, message=FALSE, warning=FALSE}
 map <- map %>%
 #Add contour line
-  addPolylines(data = macleish_layers[["contours_30ft"]], group ="lines" ) %>%
+  addPolylines(data = macleish_layers[["contours_30ft"]], color = ~color4(CONTOUR_FT), group ="contour" ) %>%
   addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
-    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail"),
+    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
 map 
