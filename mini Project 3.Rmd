@@ -108,7 +108,7 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 
 ```{r, message=FALSE, warning=FALSE }
 map<-leaflet() %>%
-  addTiles() %>%
+  addTiles(group = "street") %>%
   #plotting important locations (parking lot, ground campsite, remote campsite)
   addMarkers(data = places, popup = ~point) %>%
   #putting the new campsites on the map 
@@ -173,19 +173,20 @@ map <- map %>%
 #Add contour line
   addPolylines(data = macleish_layers[["contours_30ft"]], color = ~color4(CONTOUR_FT), group ="contour" ) %>%
   addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
+  
   #adding a scale bar 
   addScaleBar(options = scaleBarOptions(maxWidth = 80, metric = FALSE, imperial = TRUE,
   updateWhenIdle = TRUE)) %>%
   #Layers control
 addLayersControl(
-    baseGroups = c("lines"),
+    baseGroups = c("lines", "street"),
     overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
 map 
 ```
 
-```{r, message=FALSE,warning=FALSE}
+```{r, message=FALSE,warning=FALSE,eval=FALSE}
 #finding the distance between campsites and parking
 PARKING <- data.frame(lon = -72.680663 , lat = 42.448013) %>% 
  st_as_sf(coords = c("lon", "lat"), crs = 4326)
@@ -207,7 +208,7 @@ st_distance(camp_C, PARKING, crs = 4326)
 ```
 
 
-
+![This project was hard.](https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif)
 
 
 
