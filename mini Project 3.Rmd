@@ -4,6 +4,7 @@ author: "Julia Lee"
 date: "3/31/2018"
 output: 
   html_document:
+    theme: cosmo
     code_folding: hide
 ---
 ```{r setup, include=FALSE}
@@ -172,6 +173,9 @@ map <- map %>%
 #Add contour line
   addPolylines(data = macleish_layers[["contours_30ft"]], color = ~color4(CONTOUR_FT), group ="contour" ) %>%
   addProviderTiles("Esri.WorldTopoMap", group = "lines") %>%
+  #adding a scale bar 
+  addScaleBar(options = scaleBarOptions(maxWidth = 80, metric = FALSE, imperial = TRUE,
+  updateWhenIdle = TRUE)) %>%
   #Layers control
 addLayersControl(
     baseGroups = c("lines"),
