@@ -14,14 +14,13 @@ library(tidyverse)
 #install.packages("sf")
 library(sf)
 #install.packages("macleish")
-#devtools::install_github("beanumber/macleish")
-library(macleish)
+
 library(leaflet)
 library(RSQLite)
 #install.packages("lwgeom")
 library(lwgeom)
 
-devtools::install_github("beanumber/macleish")
+#devtools::install_github("beanumber/macleish")
 library(macleish)
 packageVersion("macleish")
 
@@ -59,7 +58,7 @@ trail_stream_crossing <- st_cast(streams_trails, "POINT")
 ```
 
 ```{r,message=FALSE,warning=FALSE}
-# making a table of important places
+# making a data set of important places
 sites <- tribble(
 ~point, ~lat, ~lon,
 "Group Campsite", 42.450976, -72.678154,
@@ -78,7 +77,6 @@ contour_file <- basename(contour)
 download.file(contour, destfile = contour_file)
 unzip(contour_file, exdir ="contours250k")
 contour <- path.expand("contours250k")
-contour_lines <-st_read("CONTOURS250K_ARC.shp")
 
 ```
 
