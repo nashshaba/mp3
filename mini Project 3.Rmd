@@ -117,7 +117,7 @@ map<-leaflet() %>%
 map<-map%>%
   #adding the boundary layer 
   addPolygons(data = macleish_layers[["boundary"]], 
-              weight = 0.5, color = "lightyellow", group = "boundary") 
+              weight = 0.5, color = "lightgreen", group = "boundary") 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
