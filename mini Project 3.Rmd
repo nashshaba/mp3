@@ -27,9 +27,13 @@ packageVersion("macleish")
 ```
 
 ```{r, message=FALSE, warning=FALSE}
+#renaming some things for convenience
 landmarks<-macleish_layers[["landmarks"]]
 trail<-macleish_layers[["trails"]]
- 
+research<-macleish_layers[["research"]]
+```
+
+```{r, message=FALSE, warning=FALSE}
 #adding stream length
 streams <- macleish_layers[["streams"]]%>%
 mutate(Length_Of_Streams = st_length(geometry))
@@ -67,9 +71,6 @@ sites <- tribble(
 places <- st_as_sf(sites,coords = c("lon", "lat"), crs = 4326)
 ```
 
-
-
-
 ```{r, message=FALSE, warning = FALSE}
 #contour_file 
 contour <-"http://download.massgis.digital.mass.gov/shapefiles/state/contours250k.zip"
@@ -94,12 +95,18 @@ campsites<-st_as_sf(possible_camps,coords = c("lon", "lat"), crs = 4326)
 forests<-macleish_layers[["forests"]] %>%
   rename(type_of_forest = Sheet1__Na) %>%
    mutate(Area = st_area(geometry))
-research<-macleish_layers[["research"]]
+```
+
+```{r,message=FALSE, warning=FALSE}
 
 color1<-colorFactor("Paired", inside_trails$name)
+
 color2 <-colorBin("Reds", inside_streams$Length_Of_Streams,5, pretty = FALSE)
+
+#color mapping palette for contours_30ft based on CONTOUR_FT
 color4<-colorBin("GnBu",macleish_layers [["contours_30ft"]]$CONTOUR_FT)
 
+#color mapping palette for forests based on type_of_forest
 color3<-colorFactor("Dark2", forests$type_of_forest)
 
 ```
