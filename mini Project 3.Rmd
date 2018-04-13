@@ -227,10 +227,10 @@ st_distance(camp_A, PARKING, crs = 4326)
 st_distance(camp_C, PARKING, crs = 4326)
 
 ```
-
+^[https://github.com/JuliaClaireLee/mp3.git]
 
 ![This project was hard.](https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif)
-
+^[https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif]
 
 
 
