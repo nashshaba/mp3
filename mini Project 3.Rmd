@@ -1,6 +1,6 @@
 ---
 title: "Better Campsites"
-author: "Julia Lee"
+author: "Julia Lee, Nashshaba Nawaz, & Nybria Acklin"
 date: "3/31/2018"
 output: 
   html_document:
