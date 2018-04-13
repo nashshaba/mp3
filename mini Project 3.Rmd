@@ -118,7 +118,7 @@ map<-leaflet() %>%
   #plotting important locations (parking lot, ground campsite, remote campsite)
   addMarkers(data = places, popup = ~point) %>%
   #putting the new campsites on the map 
-  addMarkers(data = campsites, popup = ~point) 
+  addCircleMarkers(data = campsites, popup = ~point, group = "New Campsites") 
 ```
 
 ```{r, message=FALSE, warning=FALSE }
@@ -196,7 +196,7 @@ map <- map %>%
   #Layers control
 addLayersControl(
     baseGroups = c("Topography_lines", "street"),
-    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour", "research"),
+    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour", "research", "New Campsites"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
 ```
