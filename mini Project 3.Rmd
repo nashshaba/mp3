@@ -225,7 +225,6 @@ camp_B <- data.frame(lon = -72.6787624426988 , lat = 42.44503189520893) %>%
 st_distance(camp_B, PARKING, crs = 4326)
 st_distance(camp_A, PARKING, crs = 4326)
 st_distance(camp_C, PARKING, crs = 4326)
-
 ```
 ^[https://github.com/JuliaClaireLee/mp3.git]
 
