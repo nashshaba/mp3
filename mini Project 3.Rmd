@@ -116,7 +116,7 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 map<-leaflet() %>%
   addTiles(group = "street") %>%
   #plotting important locations (parking lot, ground campsite, remote campsite)
-  addMarkers(data = places, popup = ~point) %>%
+  addMarkers(data = places, popup = ~point, group = "places") %>%
   #putting the new campsites on the map 
   addCircleMarkers(data = campsites, popup = ~point, group = "New Campsites") 
 ```
@@ -196,7 +196,7 @@ map <- map %>%
   #Layers control
 addLayersControl(
     baseGroups = c("Topography_lines", "street"),
-    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour", "research", "New Campsites"),
+    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour", "research", "New Campsites", "places"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
 ```
