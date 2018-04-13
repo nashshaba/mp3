@@ -187,7 +187,12 @@ map <- map %>%
 map <- map %>%
   #adding a scale bar 
   addScaleBar(options = scaleBarOptions(maxWidth = 80, metric = FALSE, imperial = TRUE,
-  updateWhenIdle = TRUE)) %>%
+  updateWhenIdle = TRUE)) 
+```
+
+
+```{r, message=FALSE, warning=FALSE} 
+map <- map %>%
   #Layers control
 addLayersControl(
     baseGroups = c("Topography_lines", "street"),
