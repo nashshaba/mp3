@@ -170,7 +170,7 @@ map <- map %>%
   #adding building layer
   addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name, group = "buildings") %>%
   #adding research locations, popups are by name of research project
-  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black") 
+  addPolygons (data = research, popup = ~Name, weight = 1, color = "Black", group = "research") 
 ```
 
 
@@ -196,7 +196,7 @@ map <- map %>%
   #Layers control
 addLayersControl(
     baseGroups = c("Topography_lines", "street"),
-    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour"),
+    overlayGroups = c("boundary", "buildings", "water_source", "forests","landmark","challenge_course","trail", "contour", "research"),
     options = layersControlOptions(collapsed = FALSE)
   ) 
 ```
