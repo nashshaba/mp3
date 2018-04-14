@@ -105,7 +105,7 @@ color1<-colorFactor("Paired", inside_trails$name)
 color2 <-colorBin("Reds", inside_streams$Length_Of_Streams,5, pretty = FALSE)
 
 #color mapping palette for contours_30ft based on elevation
-color4<-colorBin("Reds",macleish_layers [["contours_3m"]]$ELEV_M)
+color4<-colorBin("RdPu",macleish_layers [["contours_3m"]]$ELEV_M)
 
 #color mapping palette for forests based on type_of_forest
 color3<-colorFactor("Dark2", forests$type_of_forest)
