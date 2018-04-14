@@ -104,8 +104,8 @@ color1<-colorFactor("Paired", inside_trails$name)
 #color mapping palette for inside_streams based on length 
 color2 <-colorBin("Reds", inside_streams$Length_Of_Streams,5, pretty = FALSE)
 
-#color mapping palette for contours_30ft based on CONTOUR_FT
-color4<-colorBin("GnBu",macleish_layers [["contours_30ft"]]$CONTOUR_FT)
+#color mapping palette for contours_30ft based on elevation
+color4<-colorBin("Reds",macleish_layers [["contours_3m"]]$ELEV_M)
 
 #color mapping palette for forests based on type_of_forest
 color3<-colorFactor("Dark2", forests$type_of_forest)
@@ -177,7 +177,7 @@ map <- map %>%
 ```{r, message=FALSE, warning=FALSE}
 map <- map %>%
 #Add contour line
-  addPolylines(data = macleish_layers[["contours_30ft"]], color = ~color4(CONTOUR_FT), group ="contour" ) %>%
+  addPolylines(data = macleish_layers[["contours_3m"]], color = ~color4(ELEV_M), weight = 0.75, group ="contour" ) %>%
   #adding Topography 
   addProviderTiles("Esri.WorldTopoMap", group = "Topography_lines") 
 ```
@@ -225,6 +225,8 @@ camp_B <- data.frame(lon = -72.6787624426988 , lat = 42.44503189520893) %>%
 st_distance(camp_B, PARKING, crs = 4326)
 st_distance(camp_A, PARKING, crs = 4326)
 st_distance(camp_C, PARKING, crs = 4326)
+macleish_layers[["contours_3m"]]%>%
+  plot()
 ```
 ^[https://github.com/JuliaClaireLee/mp3.git]
 
