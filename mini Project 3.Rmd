@@ -1,5 +1,5 @@
 ---
-title: "Better Campsites"
+title: "Champ Sites: Creating Better Accessibility at Macleish"
 author: "Julia Lee, Nashshaba Nawaz, & Nybria Acklin"
 date: "3/31/2018"
 output: 
@@ -230,8 +230,11 @@ st_distance(camp_C, PARKING, crs = 4326)
 ```
 ^[GitHub repository: https://github.com/JuliaClaireLee/mp3.git]
 
+
+
 ![](https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif)
-^[This project was hard.https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif]
+
+^[This project was very hard.https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif]
 
 
 
