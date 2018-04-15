@@ -23,6 +23,8 @@ packageVersion("macleish")
 
 ```
 
+![MacLeish Map](https://goo.gl/images/HaCQtA)
+
 ```{r, message=FALSE, warning=FALSE}
 #renaming some things for convenience
 landmarks<-macleish_layers[["landmarks"]]
