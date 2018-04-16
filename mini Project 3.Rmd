@@ -117,6 +117,13 @@ color3<-colorFactor("Dark2", forests$type_of_forest)
 
 ```
 
+We used shapefiles from the MacLeish package that contain information about various man-made and natural structures surrounding the field station. The spatial objects used include hiking trails, wetland areas, landmarks, forest type, local streams, challenge courses, research plots, property boundaries lines. Each object was mapped to a different color to make the map easy to interpret. We used contour elevation data - downloaded from massGIS - to help depict elevation of an area. Parking,  group campsite, and remote campsite coordinates were provided in mini project 3. Lastly we added a scale bar that allows the map reader to estimate distance between any two points of interest. We plotted three possible campsites that fulfill the requirements, but we are recommending the following two:  
+
+*Campsite B*(lon = -72.6787624426988 , lat = 42.44503189520893), is approximately 0.225 miles southeast from the parking lot, which is very accessible for first time campers or campers with young children. The campsite is  located in abandon Pasture and is to the right of the Snowmobile Trail, making it easier for campers to locate it. It is also close to landmarks that visitors might want to see like the Spring to Tom Mahar, the lowest point, and 18" Diameter Spring to Cooney.  
+
+*Campsite C* (lat =42.45024, lon = -72.68299), is approximately  0.2 miles north  from the parking lot. It is located in the Red Oak-Hemlock Forest. This campsite can be found at the southern intersection of two trails, The Western Loop and The Porcupine Trail, making it very easy to locate. It is also close to the Vernal Pool Loop. The visibility of the campsite could be both a pro or a con; the pro being the ability to call for help easily during any emergency. However,  foot traffic from the walking trails may lead to disruption of campsite activity. 
+
+
 ```{r, message=FALSE, warning=FALSE }
 map<-leaflet() %>%
   addTiles(group = "street") %>%
@@ -232,6 +239,7 @@ st_distance(camp_A, PARKING, crs = 4326)
 st_distance(camp_C, PARKING, crs = 4326)
 ```
 ^[GitHub repository: https://github.com/JuliaClaireLee/mp3.git]
+
 
 
 
