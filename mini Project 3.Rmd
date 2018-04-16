@@ -23,6 +23,9 @@ packageVersion("macleish")
 
 ```
 
+  Our observations based on the MacLeish tour reveal that the blue trail that leads to the remote campsite is far from the main attractions of Macleish. This raised a concern among our group around how accessible MacLeish campsites are for groups other than College students in majors that frequently use Macleish for class times and research.
+
+  Our group also noticed the map of Macleish, that is available to folks during the MacLeish tour is not detailed nor up to date ^[Link to map provided during MacLeish tour: https://goo.gl/images/HaCQtA]. We would like to propose a map that is detailed and up to date, that includes trails, buildings, streams, parking and our two recommended campsites. Creating a more detailed map will allow for students, faculty, and any other visitor of Macleish to know about the different landmarks, trails, and campsites available to them and allow them to better navigate themselves through the lands.
 
 
 ```{r, message=FALSE, warning=FALSE}
