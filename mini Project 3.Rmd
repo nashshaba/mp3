@@ -241,6 +241,11 @@ st_distance(camp_C, PARKING, crs = 4326)
 ^[GitHub repository: https://github.com/JuliaClaireLee/mp3.git]
 
 
+We recognize more research is needed before implementing campsite B. For instance, the abandon pasture might be better than old field, but we do not know how long the pasture was abandoned for or if there are species that are inhabiting the space. We may need to clear some forest/ area and build a direct trail from the parking lot that leads to campsite B for convenience. However, this action would induce negative externalities to the environment and would cause costs for implementing campsite B to increase. We noticed a lack of signage about where the existing campsites are when visiting MacLeish, so we might want to build signs that indicate where our campsites are. However, more resources would be needed to build signs for the new campsites. 
+ 
+ 
+ The average cost for implementing a campsite is $3000, however, the process of setting up the two recommended campsites would be relatively cheap. Campsite C would not require introduction of new trails, as it would be located at the intersection of two existing trails. Campsites usually just consist of wooden benches and tables, none of which are costly or time-consuming to set up; Macleish student interns and student workers would just need a vehicle with 4-wheel drive to transport the materials. However, since both campsites B and C are near water bodies, there exists a possibility of flooding of the sites, and further discomfort can be caused to the campers due to the tendency of mosquitoes swarming near water bodies, so one recommendation would be to build our campsites on a raised wooden platform to prevent flooding.
+
 
 
 ![](https://media.giphy.com/media/3o6ZtbdY6g0V8utOx2/giphy.gif)
